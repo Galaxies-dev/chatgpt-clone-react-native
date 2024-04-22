@@ -1,4 +1,5 @@
 export default {
+  primary: '#20AB6E',
   lime: '#D7FFD4',
   pink: '#F655FF',
   brown: '#29271D',
@@ -10,4 +11,7 @@ export default {
   green: '#172E15',
   light: '#FFFCFF',
   grey: '#242026',
+  greyLight: '#B8B3BA',
+  input: '#EEE9F0',
+  selected: '#F7F2F9',
 };

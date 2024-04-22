@@ -1,4 +1,5 @@
 import Colors from '@/constants/Colors';
+import { defaultStyles } from '@/constants/Styles';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
@@ -8,21 +9,21 @@ const BottomLoginSheet = () => {
 
   return (
     <View style={[styles.container, { paddingBottom: bottom }]}>
-      <TouchableOpacity style={[styles.btn, styles.btnLight]}>
+      <TouchableOpacity style={[defaultStyles.btn, styles.btnLight]}>
         <Ionicons name="logo-apple" size={14} style={styles.btnIcon} />
         <Text style={styles.btnLightText}>Continue with Apple</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.btn, styles.btnDark]}>
+      <TouchableOpacity style={[defaultStyles.btn, styles.btnDark]}>
         <Ionicons name="logo-google" size={16} style={styles.btnIcon} color={'#fff'} />
         <Text style={styles.btnDarkText}>Continue with Google</Text>
       </TouchableOpacity>
-      <Link href="/login" style={[styles.btn, styles.btnDark]} asChild>
+      <Link href="/login?type=register" style={[defaultStyles.btn, styles.btnDark]} asChild>
         <TouchableOpacity>
           <Ionicons name="mail" size={20} style={styles.btnIcon} color={'#fff'} />
           <Text style={styles.btnDarkText}>Sign up with email</Text>
         </TouchableOpacity>
       </Link>
-      <Link href="/login" style={[styles.btn, styles.btnOutline]} asChild>
+      <Link href="/login?type=login" style={[defaultStyles.btn, styles.btnOutline]} asChild>
         <TouchableOpacity>
           <Text style={styles.btnDarkText}>Log in</Text>
         </TouchableOpacity>
@@ -41,14 +42,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     padding: 26,
     gap: 14,
-  },
-  btn: {
-    height: 50,
-    borderRadius: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-    paddingHorizontal: 10,
   },
   btnLight: {
     backgroundColor: '#fff',

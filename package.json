@@ -15,11 +15,11 @@
   "dependencies": {
     "@clerk/clerk-expo": "^1.0.0",
     "@expo/vector-icons": "^14.0.0",
+    "@react-navigation/drawer": "^6.6.15",
     "@react-navigation/native": "^6.0.2",
     "expo": "~50.0.14",
     "expo-dev-client": "~3.3.11",
     "expo-font": "~11.10.3",
-    "expo-haptics": "~12.8.1",
     "expo-linking": "~6.2.2",
     "expo-router": "~3.4.8",
     "expo-secure-store": "~12.8.1",
