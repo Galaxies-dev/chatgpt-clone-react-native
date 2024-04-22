@@ -1,9 +1,10 @@
 import Colors from '@/constants/Colors';
 import { defaultStyles } from '@/constants/Styles';
 import { keyStorage } from '@/utils/Storage';
+import { useAuth } from '@clerk/clerk-expo';
 import { useRouter } from 'expo-router';
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, TextInput, Button } from 'react-native';
 import { useMMKVString } from 'react-native-mmkv';
 const Page = () => {
   const [key, setKey] = useMMKVString('apikey', keyStorage);
@@ -12,6 +13,8 @@ const Page = () => {
   const [apiKey, setApiKey] = useState('');
   const [org, setOrg] = useState('');
   const router = useRouter();
+
+  const { signOut } = useAuth();
 
   const saveApiKey = async () => {
     setKey(apiKey);
@@ -64,6 +67,7 @@ const Page = () => {
           </TouchableOpacity>
         </>
       )}
+      <Button title="Sign Out" onPress={() => signOut()} color={Colors.grey} />
     </View>
   );
 };

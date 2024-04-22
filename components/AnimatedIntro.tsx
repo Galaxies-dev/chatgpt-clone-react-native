@@ -201,7 +201,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
     position: 'absolute',
     left: '0%',
-    height: 40,
+    height: 44,
   },
   ball: {
     width: 40,
