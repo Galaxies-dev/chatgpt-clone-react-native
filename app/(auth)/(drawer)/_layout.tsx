@@ -3,7 +3,15 @@ import { Drawer } from 'expo-router/drawer';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Link, useNavigation, useRouter } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Image, Text, View, StyleSheet, TouchableOpacity, Touchable } from 'react-native';
+import {
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Touchable,
+  useWindowDimensions,
+} from 'react-native';
 import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
@@ -55,6 +63,7 @@ export const CustomDrawerContent = (props: any) => {
 
 const Layout = () => {
   const navigation = useNavigation();
+  const dimensions = useWindowDimensions();
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -64,7 +73,7 @@ const Layout = () => {
           headerLeft: () => (
             <TouchableOpacity
               onPress={() => navigation.dispatch(DrawerActions.toggleDrawer)}
-              style={{ marginLeft: 12 }}>
+              style={{ marginLeft: 16 }}>
               <FontAwesome6 name="grip-lines" size={20} color={Colors.grey} />
             </TouchableOpacity>
           ),
@@ -78,6 +87,7 @@ const Layout = () => {
           overlayColor: 'rgba(0, 0, 0, 0.2)',
           drawerItemStyle: { borderRadius: 12 },
           drawerLabelStyle: { marginLeft: -20 },
+          drawerStyle: { width: dimensions.width * 0.86 },
         }}>
         <Drawer.Screen
           name="index"
@@ -129,7 +139,7 @@ const Layout = () => {
 
 const styles = StyleSheet.create({
   searchSection: {
-    marginHorizontal: 12,
+    marginHorizontal: 16,
     borderRadius: 10,
     height: 34,
     flex: 1,

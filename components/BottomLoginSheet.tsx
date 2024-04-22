@@ -17,13 +17,25 @@ const BottomLoginSheet = () => {
         <Ionicons name="logo-google" size={16} style={styles.btnIcon} color={'#fff'} />
         <Text style={styles.btnDarkText}>Continue with Google</Text>
       </TouchableOpacity>
-      <Link href="/login?type=register" style={[defaultStyles.btn, styles.btnDark]} asChild>
+      <Link
+        href={{
+          pathname: '/login',
+          params: { type: 'register' },
+        }}
+        style={[defaultStyles.btn, styles.btnDark]}
+        asChild>
         <TouchableOpacity>
           <Ionicons name="mail" size={20} style={styles.btnIcon} color={'#fff'} />
           <Text style={styles.btnDarkText}>Sign up with email</Text>
         </TouchableOpacity>
       </Link>
-      <Link href="/login?type=login" style={[defaultStyles.btn, styles.btnOutline]} asChild>
+      <Link
+        href={{
+          pathname: '/login',
+          params: { type: 'login' },
+        }}
+        style={[defaultStyles.btn, styles.btnOutline]}
+        asChild>
         <TouchableOpacity>
           <Text style={styles.btnDarkText}>Log in</Text>
         </TouchableOpacity>

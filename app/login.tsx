@@ -77,7 +77,7 @@ const Login = () => {
         </View>
       )}
 
-      <Image source={require('../assets/images/chatgpt-logo.png')} style={styles.logo} />
+      <Image source={require('../assets/images/logo-dark.png')} style={styles.logo} />
 
       <Text style={styles.title}>{type === 'login' ? 'Welcome back' : 'Create your account'}</Text>
       <View style={{ marginBottom: 30 }}>
