@@ -1,24 +1,35 @@
 import HeaderDropDown from '@/components/HeaderDropDown';
 import MessageInput from '@/components/MessageInput';
 import { defaultStyles } from '@/constants/Styles';
-import { storage } from '@/utils/Storage';
-import { Stack } from 'expo-router';
+import { keyStorage, storage } from '@/utils/Storage';
+import { Redirect, Stack } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
-import { Image, View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { Image, View, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useMMKVString } from 'react-native-mmkv';
 import OpenAI from 'react-native-openai';
 import { FlashList } from '@shopify/flash-list';
 import ChatMessage from '@/components/ChatMessage';
 import { Message, Role } from '@/utils/Interfaces';
 import MessageIdeas from '@/components/MessageIdeas';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const Page = () => {
   const [gptVersion, setGptVersion] = useMMKVString('gptVersion', storage);
   const [height, setHeight] = useState(0);
-  const { bottom } = useSafeAreaInsets();
+  const [key, setKey] = useMMKVString('apikey', keyStorage);
+  const [organization, setOrganization] = useMMKVString('org', keyStorage);
 
-  const openAI = useMemo(() => new OpenAI({}), []);
+  if (!key || key === '' || !organization || organization === '') {
+    return <Redirect href={'/(auth)/(modal)/settings'} />;
+  }
+
+  const openAI = useMemo(
+    () =>
+      new OpenAI({
+        apiKey: key,
+        organization,
+      }),
+    []
+  );
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
