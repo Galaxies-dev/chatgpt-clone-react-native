@@ -16,6 +16,7 @@ import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 import { DrawerActions } from '@react-navigation/native';
+import { BlurView } from 'expo-blur';
 
 export const CustomDrawerContent = (props: any) => {
   const { bottom } = useSafeAreaInsets();
