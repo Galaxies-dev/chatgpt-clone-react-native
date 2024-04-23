@@ -7,6 +7,8 @@ import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import { createShimmerPlaceholder } from 'react-native-shimmer-placeholder';
 import { LinearGradient } from 'expo-linear-gradient';
+import Animated, { FadeIn, FadeOut, LinearTransition, RollInLeft } from 'react-native-reanimated';
+import React from 'react';
 
 const ShimmerPlaceholder = createShimmerPlaceholder(LinearGradient);
 
@@ -72,10 +74,11 @@ const Page = () => {
 
   useEffect(() => {
     setLoading(true);
+
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, [selected]);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -122,44 +125,53 @@ const Page = () => {
         }}
       />
       <ScrollView contentContainerStyle={{ paddingTop: headerHeight }}>
-        <View style={styles.section}>
-          <ShimmerPlaceholder width={160} height={20} visible={!loading}>
-            <Text style={styles.title}>{selected.title}</Text>
-          </ShimmerPlaceholder>
-          <ShimmerPlaceholder
-            width={280}
-            height={20}
-            visible={!loading}
-            shimmerStyle={{ marginVertical: 10 }}>
-            <Text style={styles.label}>{selected.label}</Text>
-          </ShimmerPlaceholder>
-
-          {Array.from({ length: 5 }).map((_, index) => (
-            <View key={index} style={styles.card}>
-              <ShimmerPlaceholder
-                width={60}
-                height={60}
-                shimmerStyle={{ borderRadius: 30 }}
-                visible={!loading}>
-                <Image source={{ uri: apps[index].image }} style={styles.cardImage} />
-              </ShimmerPlaceholder>
-
-              <View style={{ flexShrink: 1, gap: 4 }}>
+        {sections.map((section, index) => (
+          <React.Fragment key={index}>
+            {selected === section && (
+              <Animated.View
+                style={styles.section}
+                entering={FadeIn.duration(600).delay(400)}
+                exiting={FadeOut.duration(400)}>
                 <ShimmerPlaceholder width={160} height={20} visible={!loading}>
-                  <Text style={styles.cardTitle}>{apps[index].title}</Text>
+                  <Text style={styles.title}>{selected.title}</Text>
+                </ShimmerPlaceholder>
+                <ShimmerPlaceholder
+                  width={280}
+                  height={20}
+                  visible={!loading}
+                  shimmerStyle={{ marginVertical: 10 }}>
+                  <Text style={styles.label}>{selected.label}</Text>
                 </ShimmerPlaceholder>
 
-                <ShimmerPlaceholder width={160} height={20} visible={!loading}>
-                  <Text style={styles.cardDesc}>{apps[index].description}</Text>
-                </ShimmerPlaceholder>
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <View key={index} style={styles.card}>
+                    <ShimmerPlaceholder
+                      width={60}
+                      height={60}
+                      shimmerStyle={{ borderRadius: 30 }}
+                      visible={!loading}>
+                      <Image source={{ uri: apps[index].image }} style={styles.cardImage} />
+                    </ShimmerPlaceholder>
 
-                <ShimmerPlaceholder width={250} height={20} visible={!loading}>
-                  <Text style={styles.cardAuthor}>{apps[index].author}</Text>
-                </ShimmerPlaceholder>
-              </View>
-            </View>
-          ))}
-        </View>
+                    <View style={{ flexShrink: 1, gap: 4 }}>
+                      <ShimmerPlaceholder width={160} height={20} visible={!loading}>
+                        <Text style={styles.cardTitle}>{apps[index].title}</Text>
+                      </ShimmerPlaceholder>
+
+                      <ShimmerPlaceholder width={160} height={20} visible={!loading}>
+                        <Text style={styles.cardDesc}>{apps[index].description}</Text>
+                      </ShimmerPlaceholder>
+
+                      <ShimmerPlaceholder width={250} height={20} visible={!loading}>
+                        <Text style={styles.cardAuthor}>{apps[index].author}</Text>
+                      </ShimmerPlaceholder>
+                    </View>
+                  </View>
+                ))}
+              </Animated.View>
+            )}
+          </React.Fragment>
+        ))}
       </ScrollView>
     </View>
   );
