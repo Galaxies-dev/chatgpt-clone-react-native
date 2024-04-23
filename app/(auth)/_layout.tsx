@@ -33,7 +33,7 @@ const Layout = () => {
           headerTitle: '',
           presentation: 'fullScreenModal',
           headerBlurEffect: 'dark',
-          headerStyle: { backgroundColor: 'rgba(0,0,0,0.65)' },
+          headerStyle: { backgroundColor: 'rgba(0,0,0,0.4)' },
           headerTransparent: true,
           headerShadowVisible: false,
           headerLeft: () => (

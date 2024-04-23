@@ -7,4 +7,5 @@ export interface Message {
   role: Role;
   content: string;
   imageUrl?: string;
+  prompt?: string;
 }

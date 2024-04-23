@@ -3,24 +3,20 @@ import { copyImageToClipboard, downloadAndSaveImage, shareImage } from '@/utils/
 import { Message, Role } from '@/utils/Interfaces';
 import { Link } from 'expo-router';
 import { View, Text, StyleSheet, Image, ActivityIndicator, Pressable } from 'react-native';
-import * as ContextMenu from 'zeego/context-menu';
+import ContextMenu from 'react-native-context-menu-view';
 
-const ChatMessage = ({
-  content,
-  role,
-  imageUrl,
-  prompt,
-  loading,
-}: Message & { loading?: boolean }) => {
-  const contextItems = [
-    { title: 'Copy', systemIcon: 'doc.on.doc', action: () => copyImageToClipboard(imageUrl!) },
-    {
-      title: 'Save to Photos',
-      systemIcon: 'arrow.down.to.line',
-      action: () => downloadAndSaveImage(imageUrl!),
-    },
-    { title: 'Share', systemIcon: 'square.and.arrow.up', action: () => shareImage(imageUrl!) },
-  ];
+const ChatMessage = ({ content, role, imageUrl, loading }: Message & { loading?: boolean }) => {
+  const onSaveImage = async () => {
+    downloadAndSaveImage(imageUrl!);
+  };
+
+  const onShareImage = async () => {
+    shareImage(imageUrl!);
+  };
+
+  const onCopyImage = async () => {
+    copyImageToClipboard(imageUrl!);
+  };
 
   return (
     <View style={styles.row}>
@@ -39,32 +35,29 @@ const ChatMessage = ({
       ) : (
         <>
           {content === '' && imageUrl ? (
-            <ContextMenu.Root>
-              <ContextMenu.Trigger>
-                <Link
-                  href={`/(auth)/(modal)/image/${encodeURIComponent(
-                    imageUrl
-                  )}?prompt=${encodeURIComponent(prompt!)}`}
-                  asChild>
-                  <Pressable>
-                    <Image source={{ uri: imageUrl }} style={styles.previewImage} />
-                  </Pressable>
-                </Link>
-              </ContextMenu.Trigger>
-              <ContextMenu.Content>
-                {contextItems.map((item, index) => (
-                  <ContextMenu.Item key={item.title} onSelect={item.action}>
-                    <ContextMenu.ItemTitle>{item.title}</ContextMenu.ItemTitle>
-                    <ContextMenu.ItemIcon
-                      ios={{
-                        name: item.systemIcon,
-                        pointSize: 18,
-                      }}
-                    />
-                  </ContextMenu.Item>
-                ))}
-              </ContextMenu.Content>
-            </ContextMenu.Root>
+            <ContextMenu
+              actions={[
+                { title: 'Copy', systemIcon: 'doc.on.doc' },
+                { title: 'Save to Photos', systemIcon: 'arrow.down.to.line' },
+                { title: 'Share', systemIcon: 'square.and.arrow.up' },
+              ]}
+              onPress={(event) => {
+                const { index } = event.nativeEvent;
+
+                if (index == 0) {
+                  onCopyImage();
+                } else if (index == 1) {
+                  onSaveImage();
+                } else if (index == 2) {
+                  onShareImage();
+                }
+              }}>
+              <Link href={`/(auth)/(modal)/image/${encodeURIComponent(imageUrl)}`} asChild>
+                <Pressable>
+                  <Image source={{ uri: imageUrl }} style={styles.previewImage} />
+                </Pressable>
+              </Link>
+            </ContextMenu>
           ) : (
             <Text style={styles.text}>{content}</Text>
           )}
