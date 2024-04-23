@@ -5,6 +5,7 @@ import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import * as SecureStore from 'expo-secure-store';
 import { Ionicons } from '@expo/vector-icons';
 import { ActivityIndicator, TouchableOpacity, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const CLERK_PUBLISHABLE_KEY = process.env.EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY;
 // Cache the Clerk JWT
@@ -53,7 +54,7 @@ const InitialLayout = () => {
     const inAuthGroup = segments[0] === '(auth)';
 
     if (isSignedIn && !inAuthGroup) {
-      router.replace('/(auth)/(drawer)');
+      router.replace('/(auth)/(drawer)/dalle');
     } else if (!isSignedIn) {
       router.replace('/');
     }
@@ -98,7 +99,9 @@ const InitialLayout = () => {
 const RootLayoutNav = () => {
   return (
     <ClerkProvider publishableKey={CLERK_PUBLISHABLE_KEY!} tokenCache={tokenCache}>
-      <InitialLayout />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <InitialLayout />
+      </GestureHandlerRootView>
     </ClerkProvider>
   );
 };

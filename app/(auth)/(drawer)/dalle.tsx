@@ -12,11 +12,15 @@ import { Image, View, StyleSheet, Text, KeyboardAvoidingView, Platform } from 'r
 import { useMMKVString } from 'react-native-mmkv';
 import OpenAI from 'react-native-openai';
 
+const dummyMessages = [
+  { role: Role.Bot, content: '', imageUrl: 'https://galaxies.dev/img/meerkat_2.jpg' },
+];
+
 const Page = () => {
   const [height, setHeight] = useState(0);
   const [key, setKey] = useMMKVString('apikey', keyStorage);
   const [organization, setOrganization] = useMMKVString('org', keyStorage);
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>(dummyMessages);
   const [working, setWorking] = useState(false);
 
   if (!key || key === '' || !organization || organization === '') {

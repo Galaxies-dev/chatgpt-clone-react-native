@@ -1,4 +1,3 @@
-import { GestureHandlerRootView, TextInput } from 'react-native-gesture-handler';
 import { Drawer } from 'expo-router/drawer';
 import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer';
 import { Link, useNavigation, useRouter } from 'expo-router';
@@ -11,6 +10,7 @@ import {
   TouchableOpacity,
   Touchable,
   useWindowDimensions,
+  TextInput,
 } from 'react-native';
 import Colors from '@/constants/Colors';
 import { Ionicons } from '@expo/vector-icons';
@@ -66,74 +66,72 @@ const Layout = () => {
   const dimensions = useWindowDimensions();
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <Drawer
-        drawerContent={CustomDrawerContent}
-        screenOptions={{
-          headerLeft: () => (
-            <TouchableOpacity
-              onPress={() => navigation.dispatch(DrawerActions.toggleDrawer)}
-              style={{ marginLeft: 16 }}>
-              <FontAwesome6 name="grip-lines" size={20} color={Colors.grey} />
-            </TouchableOpacity>
+    <Drawer
+      drawerContent={CustomDrawerContent}
+      screenOptions={{
+        headerLeft: () => (
+          <TouchableOpacity
+            onPress={() => navigation.dispatch(DrawerActions.toggleDrawer)}
+            style={{ marginLeft: 16 }}>
+            <FontAwesome6 name="grip-lines" size={20} color={Colors.grey} />
+          </TouchableOpacity>
+        ),
+        headerStyle: {
+          backgroundColor: Colors.light,
+        },
+        headerShadowVisible: false,
+        drawerActiveBackgroundColor: Colors.selected,
+        drawerActiveTintColor: '#000',
+        drawerInactiveTintColor: '#000',
+        overlayColor: 'rgba(0, 0, 0, 0.2)',
+        drawerItemStyle: { borderRadius: 12 },
+        drawerLabelStyle: { marginLeft: -20 },
+        drawerStyle: { width: dimensions.width * 0.86 },
+      }}>
+      <Drawer.Screen
+        name="index"
+        options={{
+          title: 'ChatGPT',
+          drawerIcon: () => (
+            <View style={[styles.item, { backgroundColor: '#000' }]}>
+              <Image source={require('@/assets/images/logo-white.png')} style={styles.btnImage} />
+            </View>
           ),
-          headerStyle: {
-            backgroundColor: Colors.light,
-          },
-          headerShadowVisible: false,
-          drawerActiveBackgroundColor: Colors.selected,
-          drawerActiveTintColor: '#000',
-          drawerInactiveTintColor: '#000',
-          overlayColor: 'rgba(0, 0, 0, 0.2)',
-          drawerItemStyle: { borderRadius: 12 },
-          drawerLabelStyle: { marginLeft: -20 },
-          drawerStyle: { width: dimensions.width * 0.86 },
-        }}>
-        <Drawer.Screen
-          name="index"
-          options={{
-            title: 'ChatGPT',
-            drawerIcon: () => (
-              <View style={[styles.item, { backgroundColor: '#000' }]}>
-                <Image source={require('@/assets/images/logo-white.png')} style={styles.btnImage} />
-              </View>
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="dalle"
-          options={{
-            title: 'Dall·E',
-            drawerIcon: () => (
-              <View style={[styles.item, { backgroundColor: '#000' }]}>
-                <Image source={require('@/assets/images/dalle.png')} style={styles.dallEImage} />
-              </View>
-            ),
-          }}
-        />
-        <Drawer.Screen
-          name="explore"
-          options={{
-            title: 'Explore GPTs',
-            drawerIcon: () => (
-              <View
-                style={[
-                  styles.item,
-                  {
-                    backgroundColor: '#fff',
-                    width: 28,
-                    height: 28,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                  },
-                ]}>
-                <Ionicons name="apps-outline" size={18} color="#000" />
-              </View>
-            ),
-          }}
-        />
-      </Drawer>
-    </GestureHandlerRootView>
+        }}
+      />
+      <Drawer.Screen
+        name="dalle"
+        options={{
+          title: 'Dall·E',
+          drawerIcon: () => (
+            <View style={[styles.item, { backgroundColor: '#000' }]}>
+              <Image source={require('@/assets/images/dalle.png')} style={styles.dallEImage} />
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="explore"
+        options={{
+          title: 'Explore GPTs',
+          drawerIcon: () => (
+            <View
+              style={[
+                styles.item,
+                {
+                  backgroundColor: '#fff',
+                  width: 28,
+                  height: 28,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                },
+              ]}>
+              <Ionicons name="apps-outline" size={18} color="#000" />
+            </View>
+          ),
+        }}
+      />
+    </Drawer>
   );
 };
 
