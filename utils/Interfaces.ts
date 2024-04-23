@@ -6,4 +6,5 @@ export enum Role {
 export interface Message {
   role: Role;
   content: string;
+  imageUrl?: string;
 }

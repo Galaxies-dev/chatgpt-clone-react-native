@@ -17,6 +17,7 @@ const Page = () => {
   const [height, setHeight] = useState(0);
   const [key, setKey] = useMMKVString('apikey', keyStorage);
   const [organization, setOrganization] = useMMKVString('org', keyStorage);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   if (!key || key === '' || !organization || organization === '') {
     return <Redirect href={'/(auth)/(modal)/settings'} />;
@@ -30,7 +31,6 @@ const Page = () => {
       }),
     []
   );
-  const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {
     openAI.chat.addListener('onChatMessageReceived', (payload) => {
@@ -59,8 +59,8 @@ const Page = () => {
   };
 
   const getCompletion = async (text: string) => {
-    messages.push({ role: Role.User, content: text });
-    messages.push({ role: Role.Bot, content: '' });
+    setMessages([...messages, { role: Role.User, content: text }, { role: Role.Bot, content: '' }]);
+    messages.push();
     openAI.chat.stream({
       messages: [
         {
@@ -97,7 +97,7 @@ const Page = () => {
         )}
         <FlashList
           data={messages}
-          renderItem={({ item }) => <ChatMessage content={item.content} role={item.role} />}
+          renderItem={({ item }) => <ChatMessage {...item} />}
           estimatedItemSize={400}
           contentContainerStyle={{ paddingTop: 30, paddingBottom: 150 }}
         />

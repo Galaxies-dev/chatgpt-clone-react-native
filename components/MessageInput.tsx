@@ -13,6 +13,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useRef, useState } from 'react';
 import { BlurView } from 'expo-blur';
+import * as DocumentPicker from 'expo-document-picker';
+import * as ImagePicker from 'expo-image-picker';
 
 const ATouchableOpacity = Animated.createAnimatedComponent(TouchableOpacity);
 
@@ -75,13 +77,13 @@ const MessageInput = ({ onShouldSend }: Props) => {
         </ATouchableOpacity>
 
         <Animated.View style={[styles.buttonView, buttonViewStyle]}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => ImagePicker.launchCameraAsync()}>
             <Ionicons name="camera-outline" size={24} color={Colors.grey} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => ImagePicker.launchImageLibraryAsync()}>
             <Ionicons name="image-outline" size={24} color={Colors.grey} />
           </TouchableOpacity>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => DocumentPicker.getDocumentAsync()}>
             <Ionicons name="folder-outline" size={24} color={Colors.grey} />
           </TouchableOpacity>
         </Animated.View>

@@ -34,7 +34,7 @@ const HeaderDropDown = ({ title, selected, items, onSelect }: Props) => {
             <DropdownMenu.ItemIcon
               ios={{
                 name: item.icon,
-                pointSize: 24,
+                pointSize: 18,
               }}
             />
           </DropdownMenu.Item>

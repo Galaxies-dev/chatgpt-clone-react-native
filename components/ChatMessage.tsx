@@ -1,7 +1,8 @@
+import Colors from '@/constants/Colors';
 import { Message, Role } from '@/utils/Interfaces';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 
-const ChatMessage = ({ content, role }: Message) => {
+const ChatMessage = ({ content, role, imageUrl, loading }: Message & { loading?: boolean }) => {
   return (
     <View style={styles.row}>
       {role === Role.Bot ? (
@@ -11,7 +12,20 @@ const ChatMessage = ({ content, role }: Message) => {
       ) : (
         <Image source={{ uri: 'https://galaxies.dev/img/meerkat_2.jpg' }} style={styles.avatar} />
       )}
-      <Text style={styles.text}>{content}</Text>
+
+      {loading ? (
+        <View style={styles.loading}>
+          <ActivityIndicator color={Colors.primary} size="small" />
+        </View>
+      ) : (
+        <>
+          {content === '' && imageUrl ? (
+            <Image source={{ uri: imageUrl }} style={styles.previewImage} />
+          ) : (
+            <Text style={styles.text}>{content}</Text>
+          )}
+        </>
+      )}
     </View>
   );
 };
@@ -43,6 +57,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
     flexWrap: 'wrap',
     flex: 1,
+  },
+  previewImage: {
+    width: 240,
+    height: 240,
+    borderRadius: 10,
+  },
+  loading: {
+    justifyContent: 'center',
+    height: 26,
+    marginLeft: 14,
   },
 });
 export default ChatMessage;
