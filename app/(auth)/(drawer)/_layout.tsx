@@ -22,6 +22,8 @@ import { useSQLiteContext } from 'expo-sqlite/next';
 import { useDrawerStatus } from '@react-navigation/drawer';
 import { Chat } from '@/utils/Interfaces';
 import * as ContextMenu from 'zeego/context-menu';
+import { useRevenueCat } from '@/providers/RevenueCat';
+import { Keyboard } from 'react-native';
 
 export const CustomDrawerContent = (props: any) => {
   const { bottom, top } = useSafeAreaInsets();
@@ -32,6 +34,7 @@ export const CustomDrawerContent = (props: any) => {
 
   useEffect(() => {
     loadChats();
+    Keyboard.dismiss();
   }, [isDrawerOpen]);
 
   const loadChats = async () => {
@@ -149,6 +152,8 @@ export const CustomDrawerContent = (props: any) => {
 const Layout = () => {
   const navigation = useNavigation();
   const dimensions = useWindowDimensions();
+  const { user } = useRevenueCat();
+  const router = useRouter();
 
   return (
     <Drawer
@@ -226,6 +231,16 @@ const Layout = () => {
               <Image source={require('@/assets/images/dalle.png')} style={styles.dallEImage} />
             </View>
           ),
+        }}
+        listeners={{
+          drawerItemPress: (e) => {
+            e.preventDefault();
+            if (!user.dalle) {
+              router.navigate('/(auth)/(modal)/purchase');
+            } else {
+              router.navigate('/(auth)/dalle');
+            }
+          },
         }}
       />
       <Drawer.Screen

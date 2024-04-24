@@ -12,21 +12,21 @@ import { Image, View, StyleSheet, Text, KeyboardAvoidingView, Platform } from 'r
 import { useMMKVString } from 'react-native-mmkv';
 import OpenAI from 'react-native-openai';
 
-const dummyMessages = [
-  {
-    role: Role.Bot,
-    content: '',
-    imageUrl: 'https://galaxies.dev/img/meerkat_2.jpg',
-    prompt:
-      'A meerkat astronaut in a futuristic spacesuit, standing upright on a rocky, alien landscape resembling the surface of Mars. The spacesuit is highly detailed with reflective visor and intricate life-support systems. The background shows a distant starry sky and a small Earth visible in the far horizon. The meerkat looks curious and brave, embodying the spirit of exploration.',
-  },
-];
+// const dummyMessages = [
+//   {
+//     role: Role.Bot,
+//     content: '',
+//     imageUrl: 'https://galaxies.dev/img/meerkat_2.jpg',
+//     prompt:
+//       'A meerkat astronaut in a futuristic spacesuit, standing upright on a rocky, alien landscape resembling the surface of Mars. The spacesuit is highly detailed with reflective visor and intricate life-support systems. The background shows a distant starry sky and a small Earth visible in the far horizon. The meerkat looks curious and brave, embodying the spirit of exploration.',
+//   },
+// ];
 
 const Page = () => {
   const [height, setHeight] = useState(0);
   const [key, setKey] = useMMKVString('apikey', keyStorage);
   const [organization, setOrganization] = useMMKVString('org', keyStorage);
-  const [messages, setMessages] = useState<Message[]>(dummyMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [working, setWorking] = useState(false);
 
   if (!key || key === '' || !organization || organization === '') {
@@ -44,7 +44,7 @@ const Page = () => {
 
   const onLayout = (event: any) => {
     const { height } = event.nativeEvent.layout;
-    setHeight(height);
+    setHeight(height / 2);
   };
 
   const getCompletion = async (text: string) => {

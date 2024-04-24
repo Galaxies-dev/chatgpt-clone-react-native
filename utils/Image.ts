@@ -37,7 +37,7 @@ const saveFile = async (fileUri: string) => {
       console.log('Save err: ', err);
     }
   } else if (status === 'denied') {
-    alert('please allow permissions to download');
+    Alert.alert('please allow permissions to download');
   }
 };
 

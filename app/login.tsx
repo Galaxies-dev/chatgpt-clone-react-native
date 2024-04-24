@@ -70,6 +70,7 @@ const Login = () => {
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      keyboardVerticalOffset={70}
       style={styles.container}>
       {loading && (
         <View style={defaultStyles.loadingOverlay}>
