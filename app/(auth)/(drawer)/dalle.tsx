@@ -56,7 +56,7 @@ const Page = () => {
     });
     if (result.data && result.data.length > 0) {
       const imageUrl = result.data[0].url;
-      setMessages([...messages, { role: Role.Bot, content: '', imageUrl, prompt: text }]);
+      setMessages((prev) => [...prev, { role: Role.Bot, content: '', imageUrl, prompt: text }]);
     }
     setWorking(false);
   };
@@ -92,6 +92,7 @@ const Page = () => {
           renderItem={({ item }) => <ChatMessage {...item} />}
           estimatedItemSize={400}
           contentContainerStyle={{ paddingTop: 30, paddingBottom: 150 }}
+          keyboardDismissMode="on-drag"
           ListFooterComponent={
             <>{working && <ChatMessage {...{ role: Role.Bot, content: '', loading: true }} />}</>
           }

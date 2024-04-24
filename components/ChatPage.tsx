@@ -138,6 +138,7 @@ const ChatPage = () => {
           renderItem={({ item }) => <ChatMessage {...item} />}
           estimatedItemSize={400}
           contentContainerStyle={{ paddingTop: 30, paddingBottom: 150 }}
+          keyboardDismissMode="on-drag"
         />
       </View>
 
