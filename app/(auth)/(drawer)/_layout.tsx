@@ -180,7 +180,7 @@ const Layout = () => {
       }}>
       <Drawer.Screen
         name="(chat)/new"
-        getId={({ params }) => String(Date.now())}
+        getId={() => Math.random().toString()}
         options={{
           title: 'ChatGPT',
           drawerIcon: () => (
@@ -189,7 +189,7 @@ const Layout = () => {
             </View>
           ),
           headerRight: () => (
-            <Link href={'/(auth)/(drawer)/(chat)/new'} replace asChild>
+            <Link href={'/(auth)/(drawer)/(chat)/new'} push asChild>
               <TouchableOpacity>
                 <Ionicons
                   name="create-outline"
