@@ -55,7 +55,8 @@
     "react-native-shimmer-placeholder": "^2.0.9",
     "react-native-web": "~0.19.6",
     "zeego": "^1.10.0",
-    "expo-linear-gradient": "~12.7.2"
+    "expo-linear-gradient": "~12.7.2",
+    "expo-sqlite": "~13.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

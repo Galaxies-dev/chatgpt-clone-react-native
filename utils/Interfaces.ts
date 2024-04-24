@@ -9,3 +9,8 @@ export interface Message {
   imageUrl?: string;
   prompt?: string;
 }
+
+export interface Chat {
+  id: number;
+  title: string;
+}

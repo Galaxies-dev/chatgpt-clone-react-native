@@ -60,7 +60,6 @@ const MessageInput = ({ onShouldSend }: Props) => {
   };
 
   const onSend = () => {
-    console.log('Sending message:', message);
     onShouldSend(message);
     setMessage('');
   };
